@@ -1,3 +1,4 @@
+from icecream import ic
 def check_digit(num):
     while True:
         try:
@@ -24,29 +25,64 @@ lang = check_digit(lang)
 step = input('Введите шаг сдвига (число) - ')
 step = check_num(step)
 phrase = input('Введите текст - ')
-rus = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя'
+# rus_upper = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+rus = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
 len_rus = 32
-eng = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+# eng_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+eng = 'abcdefghijklmnopqrstuvwxyz'
 len_eng = 26
 result = ''
 
 def progress(result):
     if lang == 0:
+            for i in range(len(phrase)):
+                if phrase[i].isalpha():
+                    if ord('A') <= ord(phrase[i]) <= ord('Z'):
+                        result = result + eng[step - (len_eng - eng.find(phrase[i].lower()))].upper()
+                    else:
+                        result = result + eng[step - (len_eng - eng.find(phrase[i].lower()))]
+                else:
+                    result = result + phrase[i]
+            print(result)
+
+    if lang == 1:
         for i in range(len(phrase)):
             if phrase[i].isalpha():
-                if ord('A') <= ord(phrase[i]) <= ord('Z'):
-                    if (ord(phrase[i]) - (step % len_eng)) > 90:
-                        result = result + chr((ord(phrase[i]) + (step % len_eng)) - 26)
-                    else:
-                        result = result + chr((ord(phrase[i]) + (step % len_eng)))
-                else:
-                    if (ord(phrase[i]) - (step % len_eng)) > 122:
-                        result = result + chr((ord(phrase[i]) + (step % len_eng)) - 26)
-                    else:
-                        result = result + chr((ord(phrase[i]) + (step % len_eng)))
 
+                if ord('А') <= ord(phrase[i]) <= ord('Я'):
+                    result = result + rus[step - (len_rus - rus.find(phrase[i].lower()))].upper()
+                else:
+                    result = result + rus[step - (len_rus - rus.find(phrase[i].lower()))]
             else:
                 result = result + phrase[i]
         print(result)
 
-progress(result)
+
+def reprogress(result):
+    if lang == 0:
+        for i in range(len(phrase)):
+            if phrase[i].isalpha():
+                if ord('A') <= ord(phrase[i]) <= ord('Z'):
+                    result = result + eng[(eng.find(phrase[i].lower())) - step].upper()
+                else:
+                    result = result + eng[(eng.find(phrase[i].lower())) - step]
+            else:
+                result = result + phrase[i]
+        print(result)
+
+    if lang == 1:
+        for i in range(len(phrase)):
+            if phrase[i].isalpha():
+
+                if ord('А') <= ord(phrase[i]) <= ord('Я'):
+                    result = result + rus[(rus.find(phrase[i].lower())) - step].upper()
+                else:
+                    result = result + rus[(rus.find(phrase[i].lower())) - step]
+            else:
+                result = result + phrase[i]
+        print(result)
+
+if encryption_direction == 0:
+    progress(result)
+else:
+    reprogress(result)
