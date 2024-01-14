@@ -1,4 +1,5 @@
-from icecream import ic #from icecream import ic
+#Tager
+from icecream import ic #from icecream import ic 
 def check_digit(num):
     while True:
         try:
